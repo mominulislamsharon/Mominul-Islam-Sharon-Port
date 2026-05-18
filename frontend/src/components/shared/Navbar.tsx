@@ -70,7 +70,7 @@ const Navbar = () => {
     <header className="navbar-header">
       <div className="navbar-inner">
         <Link href="/" className="navbar-logo">
-          MS.
+          MS..
         </Link>
 
         {/* Laptop / desktop — center pill menu */}
