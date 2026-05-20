@@ -3,6 +3,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import TechStrip from "@/components/sections/TechStrip";
 import SkillsSection from "@/components/sections/SkillsSection";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
+import ContactSection from "@/components/sections/ContactSection";
 
 export const metadata: Metadata = {
   title: "Mominul Islam Sharon — Full Stack MERN Developer",
@@ -17,6 +18,7 @@ export default function HomePage() {
       <TechStrip />
       <SkillsSection />
       <FeaturedProjects />
+      <ContactSection />
     </>
   );
 }

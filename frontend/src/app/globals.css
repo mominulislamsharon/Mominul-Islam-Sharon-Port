@@ -964,6 +964,238 @@ body {
   }
 }
 
+/* ── Contact section — skills/featured এর মতো responsive ── */
+.contact-section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  box-sizing: border-box;
+}
+
+.contact-section__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--violet);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.contact-section__title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #f1f5f9, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-section__card {
+  position: relative;
+  overflow: hidden;
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.contact-section__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(124, 58, 237, 0.1),
+    transparent 60%
+  );
+}
+
+.contact-section__card-title {
+  position: relative;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.contact-section__card-text {
+  position: relative;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+
+.contact-section__form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 440px;
+  width: 100%;
+}
+
+.contact-section__input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-section__input::placeholder {
+  color: #475569;
+}
+
+.contact-section__input:focus {
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.contact-section__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact-section__submit {
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.contact-section__submit:hover:not(:disabled) {
+  background: #6d28d9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+}
+
+.contact-section__submit:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+}
+
+/* Laptop */
+@media (min-width: 768px) {
+  .contact-section {
+    padding: 0 32px 64px;
+  }
+
+  .contact-section__card {
+    padding: 40px;
+  }
+
+  .contact-section__form {
+    max-width: 480px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .contact-section {
+    padding: 0 32px 72px;
+  }
+
+  .contact-section__title {
+    font-size: 32px;
+    margin-bottom: 36px;
+  }
+
+  .contact-section__card {
+    padding: 44px 48px;
+    border-radius: 22px;
+  }
+
+  .contact-section__card-title {
+    font-size: 24px;
+  }
+
+  .contact-section__card-text {
+    font-size: 15px;
+    max-width: 520px;
+  }
+
+  .contact-section__form {
+    max-width: 520px;
+    gap: 14px;
+  }
+
+  .contact-section__input {
+    padding: 13px 18px;
+    font-size: 15px;
+  }
+
+  .contact-section__textarea {
+    min-height: 120px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1280px) {
+  .contact-section {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .contact-section__card {
+    padding: 48px 56px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 0 16px 48px;
+  }
+
+  .contact-section__title {
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .contact-section__label {
+    text-align: center;
+    display: block;
+  }
+
+  .contact-section__card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .contact-section__card-title {
+    font-size: 20px;
+  }
+
+  .contact-section__card-text {
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+
+  .contact-section__form {
+    max-width: none;
+  }
+}
+
 .animate-fadeUp { animation: fadeUp 0.6s ease both; }
 .cursor-blink { animation: blink 0.9s step-end infinite; }
 .pulse-dot { animation: ripple 2s infinite; }
