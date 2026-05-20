@@ -73,6 +73,224 @@ body {
   100%{background-position:0% 50%}
 }
 
+/* [RUN] badge উপর-নিচে হালকা নড়াচড়া — preview.html এর floatBadge */
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── Hero layout — intro আগের inline style; শুধু grid + visual CSS ── */
+.hero-section {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  padding: 90px 24px 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr min(480px, 44vw);
+  gap: 60px;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+/* HeroVisual */
+.hero-visual-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-visual-glow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.18) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-visual-dots {
+  position: absolute;
+  right: -40px;
+  top: 40px;
+  width: 120px;
+  height: 120px;
+  background-image: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.4) 1px,
+    transparent 1px
+  );
+  background-size: 12px 12px;
+  opacity: 0.4;
+  z-index: -1;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.hero-visual-card {
+  width: 100%;
+  max-width: 420px;
+  height: 500px;
+  border-radius: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.hero-visual-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-visual-photo {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero-visual-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 12, 20, 0.35) 0%,
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
+/* [RUN] floating badges — absolute + floatBadge animation */
+.hero-badge {
+  position: absolute;
+  border-radius: 14px;
+  padding: 14px 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: floatBadge 4s ease-in-out infinite;
+}
+
+.hero-badge--work {
+  bottom: 28px;
+  left: -28px;
+  background: var(--elevated);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-badge--mern {
+  top: 28px;
+  right: -28px;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  padding: 14px 18px;
+  animation-delay: 0.8s;
+}
+
+.hero-badge-icon {
+  font-size: 26px;
+}
+
+.hero-badge-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.hero-badge-mern-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #9d6fff;
+}
+
+.hero-badge-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 1100px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-content > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-content > p:first-of-type {
+    justify-content: center;
+  }
+
+  .hero-content > div {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-visual-wrap {
+    justify-content: center;
+  }
+
+  .hero-visual-card {
+    max-width: 440px;
+    height: 420px;
+  }
+
+  .hero-badge--work {
+    left: 0;
+  }
+
+  .hero-badge--mern {
+    right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 40px 16px;
+    min-height: auto;
+  }
+
+  .hero-visual-card {
+    height: 360px;
+  }
+
+  .hero-badge {
+    display: none;
+  }
+}
+
 .animate-fadeUp { animation: fadeUp 0.6s ease both; }
 .cursor-blink { animation: blink 0.9s step-end infinite; }
 .pulse-dot { animation: ripple 2s infinite; }
