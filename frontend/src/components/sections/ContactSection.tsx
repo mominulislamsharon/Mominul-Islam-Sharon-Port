@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { useSendMessageMutation } from "@/redux/features/messageApi";
+import { FiMail, FiUser, FiMessageSquare, FiSend, FiMapPin, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -66,43 +67,101 @@ export default function ContactSection() {
       >
         <div className="contact-section__glow" aria-hidden="true" />
 
-        <h3 className="contact-section__card-title">Get In Touch</h3>
-        <p className="contact-section__card-text">
-          I&apos;m currently open to new opportunities. Drop me a message and
-          I&apos;ll get back within 24 hours.
-        </p>
+        <div className="contact-section__inner">
+          {/* Left Side: Contact Info */}
+          <div className="contact-section__info">
+            <h3 className="contact-section__card-title">Get In Touch</h3>
+            <p className="contact-section__card-text">
+              I&apos;m currently open to new opportunities. Whether you have a question or just want to say hi,
+              I&apos;ll try my best to get back to you within 24 hours.
+            </p>
 
-        <form className="contact-section__form" onSubmit={handleSubmit}>
-          <input
-            className="contact-section__input"
-            placeholder="Your name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-          />
-          <input
-            className="contact-section__input"
-            type="email"
-            placeholder="Your email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-          />
-          <textarea
-            className="contact-section__input contact-section__textarea"
-            placeholder="Your message"
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-            required
-          />
-          <button
-            type="submit"
-            className="contact-section__submit"
-            disabled={isLoading}
-          >
-            {isLoading ? "Sending..." : "Send Message →"}
-          </button>
-        </form>
+            <div className="contact-section__details">
+              <div className="contact-section__detail-item">
+                <div className="contact-section__icon-wrap">
+                  <FiMail className="contact-section__detail-icon" />
+                </div>
+                <div>
+                  <p className="contact-section__detail-label">Email</p>
+                  <a href="mailto:hello@example.com" className="contact-section__detail-value">
+                    hello@example.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact-section__detail-item">
+                <div className="contact-section__icon-wrap">
+                  <FiMapPin className="contact-section__detail-icon" />
+                </div>
+                <div>
+                  <p className="contact-section__detail-label">Location</p>
+                  <p className="contact-section__detail-value">Dhaka, Bangladesh</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="contact-section__socials">
+              <a href="#" className="contact-social-btn" aria-label="GitHub">
+                <FiGithub />
+              </a>
+              <a href="#" className="contact-social-btn" aria-label="LinkedIn">
+                <FiLinkedin />
+              </a>
+              <a href="#" className="contact-social-btn" aria-label="Twitter">
+                <FiTwitter />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Side: Contact Form */}
+          <form className="contact-section__form" onSubmit={handleSubmit}>
+            <div className="contact-section__input-group">
+              <FiUser className="contact-section__input-icon" />
+              <input
+                className="contact-section__input contact-section__input--with-icon"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                required
+              />
+            </div>
+            
+            <div className="contact-section__input-group">
+              <FiMail className="contact-section__input-icon" />
+              <input
+                className="contact-section__input contact-section__input--with-icon"
+                type="email"
+                placeholder="Your Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
+            </div>
+            
+            <div className="contact-section__input-group">
+              <FiMessageSquare className="contact-section__input-icon contact-section__input-icon--textarea" />
+              <textarea
+                className="contact-section__input contact-section__textarea contact-section__input--with-icon"
+                placeholder="Your Message"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                required
+              />
+            </div>
+            
+            <button
+              type="submit"
+              className="contact-section__submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Sending..." : (
+                <>
+                  Send Message <FiSend className="contact-section__submit-icon" />
+                </>
+              )}
+            </button>
+          </form>
+        </div>
       </motion.div>
     </section>
   );
