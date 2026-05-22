@@ -29,6 +29,7 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
     ...imageData,
     techStack,
   });
+  console.log('Project created:', project);
 
   sendResponse(res, {
     statusCode: 200,
