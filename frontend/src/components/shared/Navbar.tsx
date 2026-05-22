@@ -21,8 +21,24 @@ const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
+  const clickTimer = useRef<NodeJS.Timeout | null>(null);
 
   const router = useRouter();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    setLogoClicks((prev) => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        signIn("google"); // This logs in and stays on the same page!
+        return 0;
+      }
+      return newCount;
+    });
+
+    if (clickTimer.current) clearTimeout(clickTimer.current);
+    clickTimer.current = setTimeout(() => setLogoClicks(0), 1000); // 1 second threshold
+  };
 
   useEffect(() => {
     const idx = links.findIndex((l) => l.href === pathname);
@@ -61,8 +77,11 @@ const Navbar = () => {
   };
 
   const handleHireClick = () => {
-    if (isAdmin) signOut();
-    else signIn("google"); // Logs in and returns to the current page automatically!
+    if (isAdmin) {
+      signOut();
+    } else {
+      router.push("/contact");
+    }
     setMobileOpen(false);
   };
 
@@ -71,9 +90,11 @@ const Navbar = () => {
   return (
     <header className="navbar-header">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-logo">
-          MS..
-        </Link>
+        <div onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <Link href="/" className="navbar-logo" onClick={(e) => { if (logoClicks > 0) e.preventDefault(); }}>
+            MS..
+          </Link>
+        </div>
 
         {/* Laptop / desktop — center pill menu */}
         <nav ref={navRef} className="navbar-desktop-nav" aria-label="Main">
@@ -107,8 +128,8 @@ const Navbar = () => {
                 borderRadius: "100px",
                 fontSize: "13px",
                 fontWeight: 600,
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(124,58,237,0.3)",
                 color: "#f1f5f9",
                 cursor: "pointer",
                 transition: "all 0.2s",

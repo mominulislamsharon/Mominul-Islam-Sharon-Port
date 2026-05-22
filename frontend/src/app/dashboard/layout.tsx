@@ -5,7 +5,12 @@ import DashboardSidebar from '@/components/shared/DashboardSidebar';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.isAdmin) redirect('/');
+  if (!session) {
+    redirect('/login');
+  }
+  if (!session.user.isAdmin) {
+    redirect('/');
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', position: 'relative', zIndex: 1 }}>

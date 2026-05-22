@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { useSendMessageMutation } from "@/redux/features/messageApi";
-import { FiMail, FiUser, FiMessageSquare, FiSend, FiMapPin, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
+import { FiMail, FiUser, FiMessageSquare, FiSend, FiMapPin, FiGithub, FiLinkedin, FiFacebook, FiInstagram } from "react-icons/fi";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -83,8 +83,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="contact-section__detail-label">Email</p>
-                  <a href="mailto:hello@example.com" className="contact-section__detail-value">
-                    hello@example.com
+                  <a href="mailto:mominulislamsharon@gmail.com" className="contact-section__detail-value">
+                    mominulislamsharon@gmail.com
                   </a>
                 </div>
               </div>
@@ -101,14 +101,17 @@ export default function ContactSection() {
             </div>
 
             <div className="contact-section__socials">
-              <a href="#" className="contact-social-btn" aria-label="GitHub">
+              <a href="https://github.com/mominulislamsharon" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="GitHub">
                 <FiGithub />
               </a>
-              <a href="#" className="contact-social-btn" aria-label="LinkedIn">
+              <a href="https://linkedin.com/in/mominulislamsharon" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="LinkedIn">
                 <FiLinkedin />
               </a>
-              <a href="#" className="contact-social-btn" aria-label="Twitter">
-                <FiTwitter />
+              <a href="https://www.facebook.com/mominulislamsharon01" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Facebook">
+                <FiFacebook />
+              </a>
+              <a href="https://www.instagram.com/mominul_islam_sharon/" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Instagram">
+                <FiInstagram />
               </a>
             </div>
           </div>
