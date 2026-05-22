@@ -39,14 +39,14 @@ const createMessage = async (req: Request, res: Response) => {
 
 const markAsRead = async (req: Request, res: Response) => {
   try {
-    const msg = await MessageService.markAsRead(req.params.id);
+    const msg = await MessageService.markAsRead(req.params.id as string);
     res.json({ success: true, data: msg });
   } catch { res.status(500).json({ success: false, message: 'Server error' }); }
 };
 
 const deleteMessage = async (req: Request, res: Response) => {
   try {
-    await MessageService.deleteMessage(req.params.id);
+    await MessageService.deleteMessage(req.params.id as string);
     res.json({ success: true, message: 'Deleted' });
   } catch { res.status(500).json({ success: false, message: 'Server error' }); }
 };

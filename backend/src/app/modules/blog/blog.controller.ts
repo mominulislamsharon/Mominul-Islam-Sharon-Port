@@ -25,7 +25,7 @@ const getAllBlogsAdmin = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getBlogById = catchAsync(async (req: Request, res: Response) => {
-  const blog = await BlogService.getBlogById(req.params.id);
+  const blog = await BlogService.getBlogById(req.params.id as string);
   if (!blog) {
     return sendResponse(res, {
       statusCode: 404,
@@ -62,7 +62,7 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
     const uploaded = await uploadImage(req.file.path, 'portfolio/blogs');
     imageData = { image: uploaded.url, imagePublicId: uploaded.public_id };
   }
-  const blog = await BlogService.updateBlog(req.params.id, { ...req.body, ...imageData });
+  const blog = await BlogService.updateBlog(req.params.id as string, { ...req.body, ...imageData });
   if (!blog) {
     return sendResponse(res, {
       statusCode: 404,
@@ -79,7 +79,7 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
 });
 
 const deleteBlog = catchAsync(async (req: Request, res: Response) => {
-  const blog = await BlogService.getBlogById(req.params.id);
+  const blog = await BlogService.getBlogById(req.params.id as string);
   if (!blog) {
     return sendResponse(res, {
       statusCode: 404,
@@ -88,7 +88,7 @@ const deleteBlog = catchAsync(async (req: Request, res: Response) => {
     });
   }
   if (blog.imagePublicId) await deleteImage(blog.imagePublicId);
-  await BlogService.deleteBlog(req.params.id);
+  await BlogService.deleteBlog(req.params.id as string);
   sendResponse(res, {
     statusCode: 200,
     success: true,
