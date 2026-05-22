@@ -2,7 +2,7 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const links = [
@@ -21,6 +21,8 @@ const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const idx = links.findIndex((l) => l.href === pathname);
@@ -60,7 +62,7 @@ const Navbar = () => {
 
   const handleHireClick = () => {
     if (isAdmin) signOut();
-    else signIn("google");
+    else signIn("google"); // Logs in and returns to the current page automatically!
     setMobileOpen(false);
   };
 
@@ -96,6 +98,30 @@ const Navbar = () => {
         </nav>
 
         <div className="navbar-actions">
+          {isAdmin && (
+            <button
+              type="button"
+              onClick={() => router.push("/dashboard")}
+              style={{
+                padding: "8px 16px",
+                borderRadius: "100px",
+                fontSize: "13px",
+                fontWeight: 600,
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#f1f5f9",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px"
+              }}
+              className="navbar-hire-btn--desktop"
+            >
+              ⚙ Dashboard
+            </button>
+          )}
+
           <button
             type="button"
             className="navbar-hire-btn navbar-hire-btn--desktop"
