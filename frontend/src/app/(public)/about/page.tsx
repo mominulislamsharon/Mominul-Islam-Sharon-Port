@@ -149,7 +149,7 @@ function SkillsGridSection() {
     {
       title: "Tools & DevOps",
       icon: <FiSettings />,
-      skills: ["Git", "GitHub", "Docker", "AWS", "Vercel", "Linux"],
+      skills: ["Git", "GitHub", "Docker", "AWS", "Vercel"],
     },
   ];
 
@@ -221,39 +221,51 @@ function SkillsGridSection() {
 function ExperienceTimelineSection() {
   const experiences = [
     {
-      year: "2024 - Present",
-      title: "Full Stack Developer",
-      company: "Building Remarkable Projects",
+      year: "2026 - Present",
+      title: "Full Stack Developer (Self-Directed)",
+      company: "Independent Projects & Practice",
       description:
-        "Developing scalable web applications using the robust MERN stack with a strong focus on high performance, security, and exceptional user experiences.",
+        "Intensively building advanced full-stack applications to solve real-world problems and mastering new technologies.",
       points: [
-        "Architected and deployed multiple production-ready web applications.",
-        "Optimized MongoDB database queries and indexing for peak performance.",
-        "Implemented real-time features and seamless payment gateway integrations.",
+        "Developing scalable MERN applications with modern architectures.",
+        "Creating highly interactive and responsive user interfaces.",
+        "Optimizing performance and security for production environments.",
       ],
     },
     {
-      year: "2023 - 2024",
-      title: "Frontend Developer",
-      company: "Advanced Learning & Implementation",
+      year: "Oct 2025 - March 2026",
+      title: "Web Developer",
+      company: "Softvence Agency",
       description:
-        "Built responsive, dynamic UI components and implemented complex state management solutions using modern React ecosystems.",
+        "Contributed to professional projects at a tech agency, collaborating with teams to deliver industrial-standard client solutions.",
       points: [
-        "Created highly reusable, accessible React components.",
-        "Mastered Redux Toolkit & Context API for robust state management.",
-        "Improved Core Web Vitals and SEO metrics for fast-loading UI.",
+        "Participated in industry-standard development workflows.",
+        "Built robust and maintainable codebases for diverse clients.",
+        "Gained hands-on experience in a professional software environment.",
       ],
     },
     {
-      year: "2022 - 2023",
-      title: "Web Development Foundation",
-      company: "Self-Learning & Open Source",
+      year: "2025",
+      title: "Full Stack Web Development (Level 2)",
+      company: "Programming Hero",
       description:
-        "Began the journey into modern software development, mastering JavaScript, React fundamentals, and backend logic.",
+        "Specialized in the MERN stack through advanced training, deepening understanding of backend architecture and complex state management.",
       points: [
-        "Built over 20+ hands-on practice projects.",
-        "Learned full-stack patterns and basic API development.",
-        "Contributed to open-source communities.",
+        "Mastered full-stack implementation with MongoDB, Node, and Express.",
+        "Implemented secure authentication and RESTful API structures.",
+        "Built multiple complex full-stack applications from scratch.",
+      ],
+    },
+    {
+      year: "2024",
+      title: "Frontend Development (Level 1)",
+      company: "Programming Hero",
+      description:
+        "Started the journey by mastering the core principles of web development and frontend technologies.",
+      points: [
+        "Mastered modern web design principles and responsive strategies.",
+        "Built interactive and dynamic user interfaces with React.js.",
+        "Established a solid foundation in programming logic and software engineering basics.",
       ],
     },
   ];

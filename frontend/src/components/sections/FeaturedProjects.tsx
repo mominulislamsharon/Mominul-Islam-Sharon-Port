@@ -46,11 +46,8 @@ function ProjectCard({ project }: { project: Project }) {
       }}
       transition={{ type: "spring", stiffness: 360, damping: 28 }}
     >
-      <Link
-        href={`/projects/${project._id}`}
-        className="featured-project-card__link"
-      >
-        <div className="featured-project-card__thumb">
+      <div className="featured-project-card__thumb">
+        <Link href={`/projects/${project._id}`} style={{ display: 'block', height: '100%', position: 'relative' }}>
           {project.image ? (
             <Image
               src={project.image}
@@ -65,44 +62,44 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
           )}
           <div className="featured-project-card__thumb-overlay" aria-hidden />
-        </div>
+        </Link>
+      </div>
 
-        <div className="featured-project-card__body">
+      <div className="featured-project-card__body">
+        <Link href={`/projects/${project._id}`} style={{ textDecoration: 'none' }}>
           <h3 className="featured-project-card__title">{project.title}</h3>
-          <p className="featured-project-card__desc">{project.description}</p>
-          <div className="featured-project-card__tags">
-            {project.techStack.map((t) => (
-              <span key={t} className="featured-project-card__tag">
-                {t}
-              </span>
-            ))}
-          </div>
-          <div className="featured-project-card__actions">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="featured-project-card__btn featured-project-card__btn--primary"
-                onClick={(e) => e.stopPropagation()}
-              >
-                ↗ Live
-              </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="featured-project-card__btn featured-project-card__btn--ghost"
-                onClick={(e) => e.stopPropagation()}
-              >
-                ⌥ GitHub
-              </a>
-            )}
-          </div>
+        </Link>
+        <p className="featured-project-card__desc">{project.description}</p>
+        <div className="featured-project-card__tags">
+          {project.techStack.map((t) => (
+            <span key={t} className="featured-project-card__tag">
+              {t}
+            </span>
+          ))}
         </div>
-      </Link>
+        <div className="featured-project-card__actions">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="featured-project-card__btn featured-project-card__btn--primary"
+            >
+              ↗ Live
+            </a>
+          )}
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="featured-project-card__btn featured-project-card__btn--ghost"
+            >
+              ⌥ GitHub
+            </a>
+          )}
+        </div>
+      </div>
     </motion.article>
   );
 }
