@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
-import { deleteImage, uploadImage } from "../../utils/clodinary";
+import { uploadImage, deleteImage } from "../../utils/clodinary";
 import sendResponse from "../../utils/sendResponse";
 import { ProjectService } from "./project.service";
 
 const createProject = catchAsync(async (req: Request, res: Response) => {
   const images: { url: string; publicId: string }[] = [];
 
-  // Upload images if files exist
   if (req.files && Array.isArray(req.files)) {
     for (const file of req.files) {
       const upload = await uploadImage(file.path, "portfolio/projects");
@@ -19,41 +18,41 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
   }
 
   const techStack = req.body.techStack
-    ? Array.isArray(req.body.techStack)
-      ? req.body.techStack.map((t: string) => t.trim())
-      : String(req.body.techStack)
-          .split(",")
-          .map((t: string) => t.trim())
+    ? typeof req.body.techStack === "string"
+      ? (req.body.techStack as string).split(",").map((t: string) => t.trim())
+      : (req.body.techStack as any)
     : [];
 
-  const project = await ProjectService.createProject({
+  const projectData = {
     ...req.body,
     images,
     techStack,
-  });
-  console.log("Project created:", project);
+    featured: req.body.featured === "true",
+    order: Number(req.body.order) || 0,
+  };
 
+  const result = await ProjectService.createProject(projectData);
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: 201,
     success: true,
     message: "Project created successfully",
-    data: project,
+    data: result,
   });
 });
 
 const getAllProjects = catchAsync(async (req: Request, res: Response) => {
-  const projects = await ProjectService.getAllProjects({});
+  const result = await ProjectService.getAllProjects({});
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Projects fetched successfully",
-    data: projects,
+    data: result,
   });
 });
 
 const getProjectById = catchAsync(async (req: Request, res: Response) => {
-  const project = await ProjectService.getProjectById(String(req.params.id));
-  if (!project) {
+  const result = await ProjectService.getProjectById(req.params.id);
+  if (!result) {
     return sendResponse(res, {
       statusCode: 404,
       success: false,
@@ -64,78 +63,95 @@ const getProjectById = catchAsync(async (req: Request, res: Response) => {
     statusCode: 200,
     success: true,
     message: "Project fetched successfully",
-    data: project,
+    data: result,
   });
 });
 
 const updateProject = catchAsync(async (req: Request, res: Response) => {
-  const newImages: { url: string; publicId: string }[] = [];
+  const { id } = req.params;
+  const body = req.body;
+  const files = req.files as Express.Multer.File[];
 
-  // Upload new images if files exist
-  if (req.files && Array.isArray(req.files)) {
-    for (const file of req.files) {
+  const existingProject = await ProjectService.getProjectById(id);
+  if (!existingProject) {
+    return sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: "Project not found",
+    });
+  }
+
+  let currentImages = existingProject.images || [];
+
+  if (body.keepImages) {
+    const keepImages = JSON.parse(body.keepImages);
+    const keepPublicIds = keepImages.map((img: any) => img.publicId);
+
+    for (const img of currentImages) {
+      if (img.publicId && !keepPublicIds.includes(img.publicId)) {
+        await deleteImage(img.publicId);
+      }
+    }
+    currentImages = keepImages;
+  }
+
+  if (files && files.length > 0) {
+    for (const file of files) {
       const upload = await uploadImage(file.path, "portfolio/projects");
-      newImages.push({
+      currentImages.push({
         url: upload.url,
         publicId: upload.public_id,
       });
     }
   }
 
-  const techStack = req.body.techStack
-    ? Array.isArray(req.body.techStack)
-      ? req.body.techStack.map((t: string) => t.trim())
-      : String(req.body.techStack)
-          .split(",")
-          .map((t: string) => t.trim())
-    : [];
+  const updateData: any = {
+    ...body,
+    images: currentImages,
+    techStack: body.techStack ? (typeof body.techStack === "string" ? (body.techStack as string).split(",").map((s: string) => s.trim()) : (body.techStack as any)) : undefined,
+    featured: body.featured === "true" ? true : body.featured === "false" ? false : (body.featured as any),
+    order: body.order ? Number(body.order) : undefined,
+  };
 
-  const existingProject = await ProjectService.getProjectById(String(req.params.id));
-  const images = [...(existingProject?.images || []), ...newImages];
+  delete updateData.keepImages;
 
-  const update = { ...req.body, images, ...(techStack.length > 0 && { techStack }) };
-  const project = await ProjectService.updateProject(
-    String(req.params.id),
-    update,
-  );
-  if (!project)
-    return res.status(404).json({ success: false, message: "Not found" });
-
+  const result = await ProjectService.updateProject(id, updateData);
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Project updated successfully",
-    data: project,
+    data: result,
   });
 });
 
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
-  const project = await ProjectService.getProjectById(String(req.params.id));
-  if (!project)
-    return res.status(404).json({ success: false, message: "Not found" });
-
-  if (project.images && project.images.length > 0) {
+  const { id } = req.params;
+  const project = await ProjectService.getProjectById(id);
+  
+  if (project?.images && project.images.length > 0) {
     for (const img of project.images) {
-      await deleteImage(img.publicId);
+      if (img.publicId) {
+        await deleteImage(img.publicId);
+      }
     }
   }
-  await ProjectService.deleteProject(String(req.params.id));
 
+  const result = await ProjectService.deleteProject(id);
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Project deleted successfully",
-    data: project,
+    data: result,
   });
 });
 
-const getFeatured = catchAsync(async (_req: Request, res: Response) => {
-  const projects = await ProjectService.getFeaturedProjects();
+const getFeatured = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProjectService.getFeaturedProjects();
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Featured projects fetched successfully",
-    data: projects,
+    data: result,
   });
 });
 
