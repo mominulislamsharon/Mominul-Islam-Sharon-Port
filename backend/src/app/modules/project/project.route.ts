@@ -5,11 +5,11 @@ import multer from "multer";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post("/", upload.single("image"), ProjectController.createProject);
+router.post("/", upload.array("images", 5), ProjectController.createProject);
 router.get("/", ProjectController.getAllProjects);
 router.get("/featured", ProjectController.getFeatured);
 router.get("/:id", ProjectController.getProjectById);
-router.patch("/:id", ProjectController.updateProject);
-router.delete("/:id", upload.single("image"), ProjectController.deleteProject);
+router.patch("/:id", upload.array("images", 5), ProjectController.updateProject);
+router.delete("/:id", ProjectController.deleteProject);
 
 export default router;

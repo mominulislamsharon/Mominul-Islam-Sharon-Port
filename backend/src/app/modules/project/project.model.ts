@@ -5,11 +5,16 @@ const projectScehema = new Schema<IProject>(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, required: true },
-    image: { type: String },
-    imagePublicId: { type: String },
+    images: [
+      {
+        url: { type: String, required: true },
+        publicId: { type: String, required: true },
+      },
+    ],
     techStack: [{ type: String }],
     liveUrl: { type: String },
-    githubUrl: { type: String },
+    frontendGithub: { type: String },
+    backendGithub: { type: String },
     featured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now }, 

@@ -5,15 +5,17 @@ import sendResponse from "../../utils/sendResponse";
 import { ProjectService } from "./project.service";
 
 const createProject = catchAsync(async (req: Request, res: Response) => {
-  let imageData = {};
+  const images: { url: string; publicId: string }[] = [];
 
-  // Upload image if file exists
-  if (req.file) {
-    const upload = await uploadImage(req.file.path, "portfolio/projects");
-    imageData = {
-      image: upload.url,
-      imagePublicId: upload.public_id,
-    };
+  // Upload images if files exist
+  if (req.files && Array.isArray(req.files)) {
+    for (const file of req.files) {
+      const upload = await uploadImage(file.path, "portfolio/projects");
+      images.push({
+        url: upload.url,
+        publicId: upload.public_id,
+      });
+    }
   }
 
   const techStack = req.body.techStack
@@ -26,10 +28,10 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
 
   const project = await ProjectService.createProject({
     ...req.body,
-    ...imageData,
+    images,
     techStack,
   });
-  console.log('Project created:', project);
+  console.log("Project created:", project);
 
   sendResponse(res, {
     statusCode: 200,
@@ -67,15 +69,17 @@ const getProjectById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateProject = catchAsync(async (req: Request, res: Response) => {
-  let imageData = {};
+  const newImages: { url: string; publicId: string }[] = [];
 
-  // Upload new image if file exists
-  if (req.file) {
-    const upload = await uploadImage(req.file.path, "portfolio/projects");
-    imageData = {
-      image: upload.url,
-      imagePublicId: upload.public_id,
-    };
+  // Upload new images if files exist
+  if (req.files && Array.isArray(req.files)) {
+    for (const file of req.files) {
+      const upload = await uploadImage(file.path, "portfolio/projects");
+      newImages.push({
+        url: upload.url,
+        publicId: upload.public_id,
+      });
+    }
   }
 
   const techStack = req.body.techStack
@@ -85,7 +89,11 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
           .split(",")
           .map((t: string) => t.trim())
     : [];
-  const update = { ...req.body, ...imageData, ...(techStack && { techStack }) };
+
+  const existingProject = await ProjectService.getProjectById(String(req.params.id));
+  const images = [...(existingProject?.images || []), ...newImages];
+
+  const update = { ...req.body, images, ...(techStack.length > 0 && { techStack }) };
   const project = await ProjectService.updateProject(
     String(req.params.id),
     update,
@@ -102,11 +110,15 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
 });
 
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
-  const project = await ProjectService.deleteProject(String(req.params.id));
+  const project = await ProjectService.getProjectById(String(req.params.id));
   if (!project)
     return res.status(404).json({ success: false, message: "Not found" });
 
-  if (project.imagePublicId) await deleteImage(project.imagePublicId);
+  if (project.images && project.images.length > 0) {
+    for (const img of project.images) {
+      await deleteImage(img.publicId);
+    }
+  }
   await ProjectService.deleteProject(String(req.params.id));
 
   sendResponse(res, {
