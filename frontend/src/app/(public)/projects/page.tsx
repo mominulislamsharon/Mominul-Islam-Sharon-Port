@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useGetProjectsQuery } from "@/redux/features/projectApi";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectsPage() {
   const { data: projects, isLoading } = useGetProjectsQuery();
@@ -108,8 +109,8 @@ export default function ProjectsPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 20,
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 360px), 1fr))",
+            gap: "24px",
           }}
         >
           {filtered?.map((p, idx) => (
@@ -153,16 +154,35 @@ export default function ProjectsPage() {
                     overflow: "hidden",
                   }}
                 >
-                  {p.image ? (
-                    <Image
-                      src={p.image}
-                      alt={p.title}
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
-                  ) : (
-                    "🚀"
-                  )}
+                  <Link
+                    href={`/projects/${p._id}`}
+                    style={{
+                      display: "block",
+                      height: "100%",
+                      width: "100%",
+                      position: "relative",
+                    }}
+                  >
+                    {p.images && p.images.length > 0 ? (
+                      <Image
+                        src={p.images[0].url}
+                        alt={p.title}
+                        fill
+                        style={{ objectFit: "contain" }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: "100%",
+                        }}
+                      >
+                        🚀
+                      </div>
+                    )}
+                  </Link>
                   {/* Counter Badge */}
                   <div
                     style={{
@@ -194,27 +214,42 @@ export default function ProjectsPage() {
                   flexDirection: "column",
                 }}
               >
-                <div
-                  style={{
-                    fontSize: "clamp(15px, 2.5vw, 18px)",
-                    fontWeight: 700,
-                    marginBottom: 8,
-                    color: "#06B6D4",
-                  }}
+                <Link
+                  href={`/projects/${p._id}`}
+                  style={{ textDecoration: "none" }}
                 >
-                  {p.title}
-                </div>
-                <div
-                  style={{
-                    fontSize: "clamp(12px, 1.8vw, 13px)",
-                    color: "var(--muted)",
-                    lineHeight: 1.6,
-                    marginBottom: 14,
-                    flex: 1,
-                  }}
+                  <div
+                    style={{
+                      fontSize: "clamp(15px, 2.5vw, 18px)",
+                      fontWeight: 700,
+                      marginBottom: 8,
+                      color: "#06B6D4",
+                    }}
+                  >
+                    {p.title}
+                  </div>
+                </Link>
+                <Link
+                  href={`/projects/${p._id}`}
+                  style={{ textDecoration: "none" }}
                 >
-                  {p.description}
-                </div>
+                  <div
+                    style={{
+                      fontSize: "clamp(12px, 1.8vw, 13px)",
+                      color: "var(--muted)",
+                      lineHeight: 1.6,
+                      marginBottom: 14,
+                      flex: 1,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {p.description}
+                  </div>
+                </Link>
 
                 {/* Tech Stack */}
                 <div
@@ -275,9 +310,9 @@ export default function ProjectsPage() {
                       ↗ Live
                     </a>
                   )}
-                  {p.githubUrl && (
+                  {p.frontendGithub && (
                     <a
-                      href={p.githubUrl}
+                      href={p.frontendGithub}
                       target="_blank"
                       rel="noreferrer"
                       style={{
@@ -304,7 +339,39 @@ export default function ProjectsPage() {
                         el.style.color = "var(--muted)";
                       }}
                     >
-                      ⌥ GitHub
+                      ⌥ Client
+                    </a>
+                  )}
+                  {p.backendGithub && (
+                    <a
+                      href={p.backendGithub}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: "8px 14px",
+                        borderRadius: 8,
+                        fontSize: "11px",
+                        fontWeight: 600,
+                        background: "rgba(255,255,255,0.06)",
+                        color: "var(--muted)",
+                        border: "1px solid var(--border)",
+                        textDecoration: "none",
+                        transition: "all 0.2s",
+                        cursor: "pointer",
+                        textAlign: "center",
+                      }}
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget as HTMLElement;
+                        el.style.borderColor = "rgba(124,58,237,0.5)";
+                        el.style.color = "#A78BFA";
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget as HTMLElement;
+                        el.style.borderColor = "var(--border)";
+                        el.style.color = "var(--muted)";
+                      }}
+                    >
+                      ⌥ Server
                     </a>
                   )}
                 </div>

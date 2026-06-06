@@ -5,10 +5,11 @@ export interface Project {
   _id: string;
   title: string;
   description: string;
-  image?: string;
+  images: { url: string; publicId: string }[];
   techStack: string[];
   liveUrl?: string;
-  githubUrl?: string;
+  frontendGithub?: string;
+  backendGithub?: string;
   featured: boolean;
   order: number;
   createdAt: string;

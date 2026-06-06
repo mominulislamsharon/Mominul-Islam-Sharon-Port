@@ -87,13 +87,13 @@ function ProjectCard({
               position: "relative",
             }}
           >
-            {project.image ? (
+            {project.images && project.images.length > 0 ? (
               <Image
-                src={project.image}
+                src={project.images[0].url}
                 alt={project.title}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "contain" }}
               />
             ) : (
               <span
@@ -156,17 +156,27 @@ function ProjectCard({
             {project.title}
           </h3>
         </Link>
-        <p
-          style={{
-            fontSize: "clamp(12px, 1.8vw, 13px)",
-            color: "var(--muted)",
-            lineHeight: 1.6,
-            marginBottom: 14,
-            flex: 1,
-          }}
+        <Link
+          href={`/projects/${project._id}`}
+          style={{ textDecoration: "none" }}
         >
-          {project.description}
-        </p>
+          <p
+            style={{
+              fontSize: "clamp(12px, 1.8vw, 13px)",
+              color: "var(--muted)",
+              lineHeight: 1.6,
+              marginBottom: 14,
+              flex: 1,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {project.description}
+          </p>
+        </Link>
 
         {/* Tech Stack */}
         <div
@@ -228,9 +238,9 @@ function ProjectCard({
               ↗ Live
             </a>
           )}
-          {project.githubUrl && (
+          {project.frontendGithub && (
             <a
-              href={project.githubUrl}
+              href={project.frontendGithub}
               target="_blank"
               rel="noreferrer"
               style={{
@@ -258,7 +268,40 @@ function ProjectCard({
                 el.style.color = "var(--muted)";
               }}
             >
-              ⌥ GitHub
+              ⌥ Client 
+            </a>
+          )}
+          {project.backendGithub && (
+            <a
+              href={project.backendGithub}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                padding: "8px 14px",
+                borderRadius: 8,
+                fontSize: "11px",
+                fontWeight: 600,
+                background: "rgba(255,255,255,0.06)",
+                color: "var(--muted)",
+                border: "1px solid var(--border)",
+                textDecoration: "none",
+                transition: "all 0.2s",
+                cursor: "pointer",
+                flex: 1,
+                textAlign: "center",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "rgba(124,58,237,0.5)";
+                el.style.color = "#A78BFA";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "var(--border)";
+                el.style.color = "var(--muted)";
+              }}
+            >
+              ⌥ Server
             </a>
           )}
         </div>

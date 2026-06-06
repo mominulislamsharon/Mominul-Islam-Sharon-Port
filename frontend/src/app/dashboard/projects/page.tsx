@@ -12,7 +12,8 @@ const emptyForm = {
   title: "",
   description: "",
   liveUrl: "",
-  githubUrl: "",
+  frontendGithub: "",
+  backendGithub: "",
   techStack: "",
   featured: false,
   order: "0",
@@ -26,7 +27,7 @@ export default function DashboardProjectsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
-  const [image, setImage] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
 
   const inputStyle = {
     padding: "10px 14px",
@@ -46,11 +47,17 @@ export default function DashboardProjectsPage() {
     fd.append("title", form.title);
     fd.append("description", form.description);
     fd.append("liveUrl", form.liveUrl);
-    fd.append("githubUrl", form.githubUrl);
+    fd.append("frontendGithub", form.frontendGithub);
+    fd.append("backendGithub", form.backendGithub);
     fd.append("techStack", form.techStack);
     fd.append("featured", String(form.featured));
     fd.append("order", form.order);
-    if (image) fd.append("image", image);
+    
+    // Append multiple images
+    images.forEach((img) => {
+      fd.append("images", img);
+    });
+
     try {
       if (editId) {
         await updateProject({ id: editId, body: fd }).unwrap();
@@ -62,7 +69,7 @@ export default function DashboardProjectsPage() {
       setShowForm(false);
       setEditId(null);
       setForm(emptyForm);
-      setImage(null);
+      setImages([]);
     } catch {
       toast.error("Failed.");
     }
@@ -73,7 +80,8 @@ export default function DashboardProjectsPage() {
       title: p.title,
       description: p.description,
       liveUrl: p.liveUrl || "",
-      githubUrl: p.githubUrl || "",
+      frontendGithub: p.frontendGithub || "",
+      backendGithub: p.backendGithub || "",
       techStack: p.techStack.join(", "),
       featured: p.featured,
       order: String(p.order),
@@ -183,9 +191,15 @@ export default function DashboardProjectsPage() {
           />
           <input
             style={inputStyle}
-            placeholder="GitHub URL"
-            value={form.githubUrl}
-            onChange={(e) => setForm({ ...form, githubUrl: e.target.value })}
+            placeholder="Frontend GitHub URL"
+            value={form.frontendGithub}
+            onChange={(e) => setForm({ ...form, frontendGithub: e.target.value })}
+          />
+          <input
+            style={inputStyle}
+            placeholder="Backend GitHub URL"
+            value={form.backendGithub}
+            onChange={(e) => setForm({ ...form, backendGithub: e.target.value })}
           />
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
             <input
@@ -217,7 +231,11 @@ export default function DashboardProjectsPage() {
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setImage(e.target.files?.[0] || null)}
+              multiple
+              onChange={(e) => {
+                const files = e.target.files ? Array.from(e.target.files) : [];
+                setImages(files);
+              }}
               style={{ fontSize: 12, color: "var(--muted)" }}
             />
           </div>
@@ -263,10 +281,9 @@ export default function DashboardProjectsPage() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(min(100%, 350px), 1fr))",
-          gap: "clamp(20px, 3vw, 40px)",
-          maxWidth: "1600px",
+          gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 350px), 1fr))",
+          gap: "24px",
+          maxWidth: "100%",
         }}
       >
         {isLoading && (
@@ -320,14 +337,30 @@ export default function DashboardProjectsPage() {
                 overflow: "hidden",
               }}
             >
-              {p.image ? (
+              {p.images && p.images.length > 0 ? (
                 <img
-                  src={p.image}
+                  src={p.images[0].url}
                   alt={p.title}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               ) : (
                 "🚀"
+              )}
+              {p.images && p.images.length > 1 && (
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: 8,
+                        left: 8,
+                        background: "rgba(0,0,0,0.5)",
+                        padding: "2px 8px",
+                        borderRadius: 10,
+                        fontSize: 10,
+                        color: "#fff"
+                    }}
+                >
+                    +{p.images.length - 1} more
+                </div>
               )}
               {p.featured && (
                 <div
