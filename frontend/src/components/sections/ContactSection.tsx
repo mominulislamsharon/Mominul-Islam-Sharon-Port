@@ -107,7 +107,7 @@ export default function ContactSection() {
               <a href="https://linkedin.com/in/mominulislamsharon" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="LinkedIn">
                 <FiLinkedin />
               </a>
-              <a href="https://www.facebook.com/mominulislamsharon01" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Facebook">
+              <a href="https://www.facebook.com/mominulislamsharon1" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Facebook">
                 <FiFacebook />
               </a>
               <a href="https://www.instagram.com/mominul_islam_sharon/" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Instagram">

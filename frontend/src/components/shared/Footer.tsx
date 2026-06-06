@@ -20,7 +20,7 @@ export default function Footer() {
       url: "https://linkedin.com/in/mominulislamsharon",
     },
     { icon: <RiTwitterXFill />, url: "https://twitter.com/mominulsharon" },
-    { icon: <FaFacebookF />, url: "https://facebook.com/mominulislamsharon01" },
+    { icon: <FaFacebookF />, url: "https://www.facebook.com/mominulislamsharon1" },
   ];
 
   const techStack = ["Next.js", "TypeScript", "MongoDB", "Vercel"];
