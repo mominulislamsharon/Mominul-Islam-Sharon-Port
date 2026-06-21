@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 import config from "../../config";
 
 cloudinary.config({
@@ -11,11 +12,24 @@ export const uploadImage = async (
   filePath: string,
   folder: string = "portfolio",
 ) => {
-  const result = await cloudinary.uploader.upload(filePath, {
-    folder,
-    transformation: [{ quality: "auto", fetch_format: "auto" }],
-  });
-  return { url: result.secure_url, public_id: result.public_id };
+  try {
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder,
+      transformation: [{ quality: "auto", fetch_format: "auto" }],
+    });
+
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    return { url: result.secure_url, public_id: result.public_id };
+  } catch (error) {
+
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+    throw error;
+  }
 };
 
 export const deleteImage = async (publicId: string) => {

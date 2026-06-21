@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { BlogService } from './blog.service';
-import { uploadImage, deleteImage } from '../../utils/clodinary';
+import { uploadImage, deleteImage } from '../../utils/cloudinary';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 

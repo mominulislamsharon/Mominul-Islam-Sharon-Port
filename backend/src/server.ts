@@ -9,12 +9,14 @@ const PORT = config.PORT;
 async function main() {
   try {
     await mongoose.connect(config.MONGO_URI);
+    console.log("🐘 Connected to MongoDB");
 
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.log(error);
+    console.error("❌ Database connection error:", error);
+    process.exit(1);
   }
 }
 

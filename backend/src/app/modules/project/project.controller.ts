@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
-import { uploadImage, deleteImage } from "../../utils/clodinary";
+import { uploadImage, deleteImage } from "../../utils/cloudinary";
 import sendResponse from "../../utils/sendResponse";
 import { ProjectService } from "./project.service";
 
@@ -108,8 +108,17 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
   const updateData: any = {
     ...body,
     images: currentImages,
-    techStack: body.techStack ? (typeof body.techStack === "string" ? (body.techStack as string).split(",").map((s: string) => s.trim()) : (body.techStack as any)) : undefined,
-    featured: body.featured === "true" ? true : body.featured === "false" ? false : (body.featured as any),
+    techStack: body.techStack
+      ? typeof body.techStack === "string"
+        ? (body.techStack as string).split(",").map((s: string) => s.trim())
+        : (body.techStack as any)
+      : undefined,
+    featured:
+      body.featured === "true"
+        ? true
+        : body.featured === "false"
+          ? false
+          : (body.featured as any),
     order: body.order ? Number(body.order) : undefined,
   };
 
@@ -127,7 +136,7 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const project = await ProjectService.getProjectById(id);
-  
+
   if (project?.images && project.images.length > 0) {
     for (const img of project.images) {
       if (img.publicId) {
