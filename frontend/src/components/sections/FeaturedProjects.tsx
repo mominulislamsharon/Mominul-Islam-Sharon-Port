@@ -6,29 +6,29 @@ import Link from "next/link";
 import { useGetFeaturedProjectsQuery } from "@/redux/features/projectApi";
 import type { Project } from "@/redux/features/projectApi";
 
-const fadeUp: Variants = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
-const gridStagger: Variants = {
+const gridStagger: any = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
-const cardMotion: Variants = {
+const cardMotion: any = {
   hidden: { opacity: 0, y: 24, scale: 0.98 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
