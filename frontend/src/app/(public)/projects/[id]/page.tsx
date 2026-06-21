@@ -47,7 +47,7 @@ export default function ProjectDetailsPage() {
     <main style={{ minHeight: "100vh", padding: "120px 20px 80px", maxWidth: "1200px", margin: "0 auto" }}>
       {/* Hero Section */}
       <motion.div initial="hidden" animate="show" variants={stagger}>
-        <motion.div variants={fadeUp} style={{ marginBottom: 48 }}>
+        <motion.div variants={fadeUp as any} style={{ marginBottom: 48 }}>
           <h1 style={{ fontSize: "clamp(32px, 6vw, 64px)", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 16, background: "linear-gradient(to right, #A78BFA, #06B6D4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             {project.title}
           </h1>
@@ -61,7 +61,7 @@ export default function ProjectDetailsPage() {
         </motion.div>
 
         {/* Media Section */}
-        <motion.div variants={fadeUp} style={{ marginBottom: 64 }}>
+        <motion.div variants={fadeUp as any} style={{ marginBottom: 64 }}>
           <div style={{ borderRadius: 24, overflow: "hidden", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)", position: "relative", aspectRatio: "16/9", marginBottom: 20 }}>
             {project.images && project.images.length > 0 ? (
               <Image
@@ -104,14 +104,14 @@ export default function ProjectDetailsPage() {
 
         {/* Content Section */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: 64 }}>
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp as any}>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20, color: "var(--text)" }}>About Project</h2>
             <p style={{ fontSize: 16, color: "var(--muted)", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>
               {project.description}
             </p>
           </motion.div>
 
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp as any}>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20, color: "var(--text)" }}>Links</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {project.liveUrl && (
