@@ -51,7 +51,7 @@ const getAllProjects = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getProjectById = catchAsync(async (req: Request, res: Response) => {
-  const result = await ProjectService.getProjectById(req.params.id);
+  const result = await ProjectService.getProjectById(req.params.id as string);
   if (!result) {
     return sendResponse(res, {
       statusCode: 404,
@@ -72,7 +72,7 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
   const body = req.body;
   const files = req.files as Express.Multer.File[];
 
-  const existingProject = await ProjectService.getProjectById(id);
+  const existingProject = await ProjectService.getProjectById(id as string);
   if (!existingProject) {
     return sendResponse(res, {
       statusCode: 404,
@@ -124,7 +124,7 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
 
   delete updateData.keepImages;
 
-  const result = await ProjectService.updateProject(id, updateData);
+  const result = await ProjectService.updateProject(id as string, updateData);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -135,7 +135,7 @@ const updateProject = catchAsync(async (req: Request, res: Response) => {
 
 const deleteProject = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const project = await ProjectService.getProjectById(id);
+  const project = await ProjectService.getProjectById(id as string);
 
   if (project?.images && project.images.length > 0) {
     for (const img of project.images) {
@@ -145,7 +145,7 @@ const deleteProject = catchAsync(async (req: Request, res: Response) => {
     }
   }
 
-  const result = await ProjectService.deleteProject(id);
+  const result = await ProjectService.deleteProject(id as string);
   sendResponse(res, {
     statusCode: 200,
     success: true,
