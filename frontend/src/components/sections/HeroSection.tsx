@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import HeroVisual from "./HeroVisual";
 
@@ -43,10 +43,10 @@ export default function HeroSection() {
     typewrite();
   }, []);
 
-  const fadeUp = (delay: number) => ({
+  const fadeUp = (delay: number): Variants => ({
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.6, delay, ease: [0.4, 0, 0.2, 1] },
   });
 
   return (

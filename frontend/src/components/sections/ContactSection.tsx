@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import toast from "react-hot-toast";
 import { useSendMessageMutation } from "@/redux/features/messageApi";
 import { FiMail, FiUser, FiMessageSquare, FiSend, FiMapPin, FiGithub, FiLinkedin, FiFacebook, FiInstagram } from "react-icons/fi";
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
   },
 };
 

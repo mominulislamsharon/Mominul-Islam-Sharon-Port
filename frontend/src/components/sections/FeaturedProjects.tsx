@@ -1,34 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useGetFeaturedProjectsQuery } from "@/redux/features/projectApi";
 import type { Project } from "@/redux/features/projectApi";
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
-const gridStagger = {
+const gridStagger: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
-const cardMotion = {
+const cardMotion: Variants = {
   hidden: { opacity: 0, y: 24, scale: 0.98 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 

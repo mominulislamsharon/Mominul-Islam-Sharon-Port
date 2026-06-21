@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const skills = [
   { icon: "⚛️", name: "React", level: 90 },
@@ -13,29 +13,29 @@ const skills = [
   { icon: "🟡", name: "JavaScript", level: 88 },
 ];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
-const gridStagger = {
+const gridStagger: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.07, delayChildren: 0.12 },
   },
 };
 
-const cardMotion = {
+const cardMotion: Variants = {
   hidden: { opacity: 0, y: 22, scale: 0.97 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as any },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
