@@ -18,7 +18,7 @@ const fadeUp: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as any },
   },
 };
 
@@ -35,7 +35,7 @@ const cardMotion: Variants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as any },
   },
 };
 
