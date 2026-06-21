@@ -5,7 +5,7 @@ import CustomCursor from '@/components/shared/CustomCursor';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
   title: 'Mominul Islam Sharon — Full Stack Developer',
   description: 'Full Stack MERN Developer building modern, scalable, high-performance web applications.',
   keywords: ['Next.js', 'React', 'Node.js', 'MongoDB', 'Full Stack Developer', 'MERN'],

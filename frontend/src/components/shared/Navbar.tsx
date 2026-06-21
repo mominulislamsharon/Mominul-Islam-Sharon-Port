@@ -92,7 +92,7 @@ const Navbar = () => {
       <div className="navbar-inner">
         <div onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <Link href="/" className="navbar-logo" onClick={(e) => { if (logoClicks > 0) e.preventDefault(); }}>
-            MS..
+            MS.
           </Link>
         </div>
 
@@ -104,11 +104,10 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link-item navbar-link ${
-                  pathname === link.href
+                className={`nav-link-item navbar-link ${pathname === link.href
                     ? "navbar-link--active"
                     : "navbar-link--idle"
-                }`}
+                  }`}
                 onMouseEnter={() => movePillToIndex(i)}
                 onMouseLeave={() => movePillToIndex(activeIndex)}
               >
@@ -175,11 +174,10 @@ const Navbar = () => {
           <Link
             key={link.href}
             href={link.href}
-            className={`navbar-mobile-link ${
-              pathname === link.href
+            className={`navbar-mobile-link ${pathname === link.href
                 ? "navbar-mobile-link--active"
                 : "navbar-mobile-link--idle"
-            }`}
+              }`}
             onClick={() => setMobileOpen(false)}
           >
             {link.label}
