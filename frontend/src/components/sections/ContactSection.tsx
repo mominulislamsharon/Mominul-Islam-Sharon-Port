@@ -4,14 +4,24 @@ import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import toast from "react-hot-toast";
 import { useSendMessageMutation } from "@/redux/features/messageApi";
-import { FiMail, FiUser, FiMessageSquare, FiSend, FiMapPin, FiGithub, FiLinkedin, FiFacebook, FiInstagram } from "react-icons/fi";
+import {
+  FiMail,
+  FiUser,
+  FiMessageSquare,
+  FiSend,
+  FiMapPin,
+  FiGithub,
+  FiLinkedin,
+  FiFacebook,
+  FiInstagram,
+} from "react-icons/fi";
 
-const fadeUp: any = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: "easeOut" },
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -72,8 +82,9 @@ export default function ContactSection() {
           <div className="contact-section__info">
             <h3 className="contact-section__card-title">Get In Touch</h3>
             <p className="contact-section__card-text">
-              I&apos;m currently open to new opportunities. Whether you have a question or just want to say hi,
-              I&apos;ll try my best to get back to you within 24 hours.
+              I&apos;m currently open to new opportunities. Whether you have a
+              question or just want to say hi, I&apos;ll try my best to get back
+              to you within 24 hours.
             </p>
 
             <div className="contact-section__details">
@@ -83,7 +94,10 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="contact-section__detail-label">Email</p>
-                  <a href="mailto:mominulislamsharon@gmail.com" className="contact-section__detail-value">
+                  <a
+                    href="mailto:mominulislamsharon@gmail.com"
+                    className="contact-section__detail-value"
+                  >
                     mominulislamsharon@gmail.com
                   </a>
                 </div>
@@ -95,22 +109,48 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="contact-section__detail-label">Location</p>
-                  <p className="contact-section__detail-value">Dhaka, Bangladesh</p>
+                  <p className="contact-section__detail-value">
+                    Dhaka, Bangladesh
+                  </p>
                 </div>
               </div>
             </div>
 
             <div className="contact-section__socials">
-              <a href="https://github.com/mominulislamsharon" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="GitHub">
+              <a
+                href="https://github.com/mominulislamsharon"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-social-btn"
+                aria-label="GitHub"
+              >
                 <FiGithub />
               </a>
-              <a href="https://linkedin.com/in/mominulislamsharon" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="LinkedIn">
+              <a
+                href="https://linkedin.com/in/mominulislamsharon"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-social-btn"
+                aria-label="LinkedIn"
+              >
                 <FiLinkedin />
               </a>
-              <a href="https://www.facebook.com/mominulislamsharon1" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Facebook">
+              <a
+                href="https://www.facebook.com/mominulislamsharon1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-social-btn"
+                aria-label="Facebook"
+              >
                 <FiFacebook />
               </a>
-              <a href="https://www.instagram.com/mominul_islam_sharon/" target="_blank" rel="noopener noreferrer" className="contact-social-btn" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/mominul_islam_sharon/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-social-btn"
+                aria-label="Instagram"
+              >
                 <FiInstagram />
               </a>
             </div>
@@ -128,7 +168,7 @@ export default function ContactSection() {
                 required
               />
             </div>
-            
+
             <div className="contact-section__input-group">
               <FiMail className="contact-section__input-icon" />
               <input
@@ -140,7 +180,7 @@ export default function ContactSection() {
                 required
               />
             </div>
-            
+
             <div className="contact-section__input-group">
               <FiMessageSquare className="contact-section__input-icon contact-section__input-icon--textarea" />
               <textarea
@@ -151,15 +191,18 @@ export default function ContactSection() {
                 required
               />
             </div>
-            
+
             <button
               type="submit"
               className="contact-section__submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : (
+              {isLoading ? (
+                "Sending..."
+              ) : (
                 <>
-                  Send Message <FiSend className="contact-section__submit-icon" />
+                  Send Message{" "}
+                  <FiSend className="contact-section__submit-icon" />
                 </>
               )}
             </button>

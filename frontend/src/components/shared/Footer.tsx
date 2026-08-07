@@ -20,7 +20,10 @@ export default function Footer() {
       url: "https://linkedin.com/in/mominulislamsharon",
     },
     { icon: <RiTwitterXFill />, url: "https://twitter.com/mominulsharon" },
-    { icon: <FaFacebookF />, url: "https://www.facebook.com/mominulislamsharon1" },
+    {
+      icon: <FaFacebookF />,
+      url: "https://www.facebook.com/mominulislamsharon1",
+    },
   ];
 
   const techStack = ["Next.js", "TypeScript", "MongoDB", "Vercel"];
@@ -194,7 +197,7 @@ export default function Footer() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1] as const,
                   }}
                   style={{
                     width: "7px",

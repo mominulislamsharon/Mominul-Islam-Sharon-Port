@@ -9,16 +9,16 @@ import {
   FiArrowRight,
 } from "react-icons/fi";
 
-const fadeUp: any = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
-const gridStagger = {
+const gridStagger: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.1, delayChildren: 0.2 },
